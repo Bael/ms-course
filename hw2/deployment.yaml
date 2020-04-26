@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myshop-deployment
+spec:
+    replicas: 2
+    selector:
+       matchLabels:
+          app: myshop
+    template:
+       metadata:
+          labels:
+             app: myshop
+       spec:
+          containers:
+          - name: myshop
+            image: bael/ms-course-hw1:v1
+            ports:
+              - name: web 
+                containerPort: 8000
