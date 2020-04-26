@@ -18,3 +18,21 @@ spec:
             ports:
               - name: web 
                 containerPort: 8000
+            livenessProbe:
+              httpGet:
+                path: /health
+                port: web
+              failureThreshold: 1
+              periodSeconds: 10
+            readinessProbe:
+              httpGet:
+                port: web
+                path: /health
+              initialDelaySeconds: 10
+              periodSeconds: 5
+            startupProbe:
+              httpGet:
+                path: /health
+                port: web
+              failureThreshold: 30
+              periodSeconds: 10
