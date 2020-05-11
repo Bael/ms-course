@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/api/v1")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -23,7 +24,12 @@ public class UserController {
 
     @PutMapping("/user/{userId}")
     public UserModel update(@RequestBody UserModel userModel, @PathVariable Long userId) {
-        return userService.update(userModel);
+        UserModel model = UserModel.builder().id(userId)
+                .email(userModel.getEmail())
+                .firstName(userModel.getFirstName())
+                .lastName(userModel.getLastName())
+                .phone(userModel.getPhone()).build();
+        return userService.update(model);
     }
 
     @DeleteMapping("/user/{userId}")
