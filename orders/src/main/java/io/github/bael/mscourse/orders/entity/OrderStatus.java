@@ -7,5 +7,4 @@ public enum OrderStatus {
     ASSEMBLING, // сборка заказа
     SHIPPED, // отгружен
     CANCELLED
-
 }

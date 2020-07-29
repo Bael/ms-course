@@ -1,15 +1,13 @@
-package io.github.bael.mscourse.orders.rest;
+package io.github.bael.mscourse.orders.rest.dto;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class OrderLineDTO {
-    private UUID uid;
+public class OrderCreateLineDTO {
     private BigDecimal amount;
     private double quantity;
     private String SKU;

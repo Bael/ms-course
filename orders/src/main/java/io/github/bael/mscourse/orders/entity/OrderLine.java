@@ -16,8 +16,11 @@ public class OrderLine {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    @Column(name = "product_number")
-    private String productNumber;
+//    @Column(name = "product_number")
+//    private String productNumber;
+
+    @Column(name = "SKU")
+    private String SKU;
 
     @Column(name = "product_name")
     private String productName;
@@ -37,5 +40,11 @@ public class OrderLine {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    @Column(name = "period_start")
+    private LocalDateTime periodStart;
+
+    @Column(name = "period_finish")
+    private LocalDateTime periodFinish;
 
 }

@@ -26,12 +26,15 @@ public class Order {
     @Column(name = "order_number")
     private String orderNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id")
+//    private Customer customer;
 
-    @Column(name = "customer_name")
-    private String customerName;
+    @Column(name = "customer_id")
+    private UUID customerId;
+
+//    @Column(name = "customer_name")
+//    private String customerName;
 
     @Column(name = "total")
     private BigDecimal total;
