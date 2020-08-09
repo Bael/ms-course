@@ -1,0 +1,55 @@
+replicaCount: 2
+
+metrics:
+  serviceMonitor:
+    enabled: true
+
+appPathPrefix: /otusapp/
+
+image:
+  repository: bael/ms-course-hw1
+
+service:
+  type: NodePort
+  port: 9000
+  name: myshop-service
+
+postgresql:
+  enabled: true
+  fullnameOverride: shop-postgres
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: shop
+  service:
+    port: "5432"
+  metrics:
+    enabled: true
+    # resources: {}
+    service:
+      type: ClusterIP
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9187"
+      loadBalancerIP:
+    serviceMonitor:
+      enabled: true
+      namespace: monitoring
+      interval: 30s
+      scrapeTimeout: 10s
+    
+ingress:
+  address: nginx-nginx-ingress-controller
+  enabled: true
+  host: arch.homework
+  hostname: arch.homework
+  annotations: {
+    kubernetes.io/ingress.class: "nginx",
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  }
+  hosts:
+    - host: arch.homework
+      paths: [/otusapp($|/)(.*)]
+  tls: []
+resources: {}
+
+

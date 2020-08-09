@@ -88,4 +88,12 @@ public class ProductService {
     }
 
 
+    public List<ProductDTO> findAll() {
+        return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> search(String request) {
+        return productRepository.searchAll("%"+ request + "%").stream()
+                .map(ProductDTO::of).collect(Collectors.toList());
+    }
 }

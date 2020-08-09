@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shop-config
+data:
+  GREETING: Bonjour
+  POSTGRES_URL: jdbc:postgresql://postgres:5432/shop
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shop-secret
+type: Opaque
+data:
+  POSTGRES_USER: {{ .Values.postgresql.postgresqlUsername | b64enc | quote }}
+  POSTGRES_PASSWORD: {{ .Values.postgresql.postgresqlPassword | quote | b64enc | quote }}
+
