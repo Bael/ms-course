@@ -1,5 +1,4 @@
 replicaCount: 2
-
 metrics:
   serviceMonitor:
     enabled: true
@@ -38,9 +37,10 @@ postgresql:
       scrapeTimeout: 10s
     
 ingress:
-  address: nginx-nginx-ingress-controller
   enabled: true
-  host: arch.homework
+  controller:
+    metrics:
+      enabled: true
   hostname: arch.homework
   annotations: {
     kubernetes.io/ingress.class: "nginx",

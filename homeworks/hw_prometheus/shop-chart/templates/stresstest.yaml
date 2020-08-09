@@ -16,11 +16,12 @@ spec:
             - "-c"
             - |
               while true; do
-                ab -n 20 -c 5 -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.address}}/otusapp/api/v1/user/1;
-                ab -n 20 -c 5 -m POST -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.address}}/otusapp/api/v1/user/1;
-                ab -n 10 -c 5 -m PATCH -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.address}}/otusapp/api/v1/user/1;
-                ab -n 30 -c 15 -m GET -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.address}}/otusapp/api/v1/user/1;
-                ab -n 10 -c 5 -m DELETE -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.address}}/otusapp/api/v1/user/1;
+                ab -n 20 -c 5 -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/1/;
+                ab -n 20 -c 5 -m POST -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/1/;
+                ab -n 10 -c 5 -m PATCH -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/1/;
+                ab -n 30 -c 15 -m GET -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/1/;
+                ab -n 30 -c 15 -m GET -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/;
+                ab -n 10 -c 5 -m DELETE -H 'Host: {{.Values.ingress.hostname}}' http://{{.Values.ingress.hostname}}/otusapp/api/v1/user/1/;
                 sleep 3;
               done
               EOF

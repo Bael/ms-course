@@ -3,6 +3,7 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelector: {}
 
+
 grafana:
   sidecar:
     dashboards:

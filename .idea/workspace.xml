@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/grafana-import.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/dashboard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounting.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/config-map.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/init-db.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/postgres.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/prometheus.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/prometheus.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/grafana.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/grafana.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/stresstest.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/stresstest.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prometheus.yml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fqZD0nRTlOED7HAXbafUnRr5Ue" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/homeworks/hw_prometheus" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/img" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="" />
+      <created>1596947459446</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596947459446</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="708" y="300" width="1205" height="874" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596954973046">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="708" y="300" width="1205" height="874" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/72.27.2488.1413/2560.0.1920.1080@72.27.2488.1413" timestamp="1596954973046" />
+  </component>
+</project>
