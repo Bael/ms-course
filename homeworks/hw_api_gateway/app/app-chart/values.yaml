@@ -1,0 +1,23 @@
+replicaCount: 2
+
+fullnameOverride: "app"
+
+image:
+  repository: bael/ms-course-app
+
+service:
+  type: NodePort
+  port: 9000
+
+
+postgresql:
+  enabled: true
+  fullnameOverride: app-postgresql 
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: shop
+  persistence:
+    size: 1Gi
+  service:
+    port: "5432"
+

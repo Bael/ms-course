@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +80,10 @@ public class UserService {
         UserAccount account = userRepository.findByLogin(username)
                 .orElseThrow(() -> new ObjectNotFoundException("Username is not founded!", username));
         return UserInfo.of(account);
+    }
+
+    public UserAccount findByLogin(String username) {
+        return userRepository.findByLogin(username)
+                .orElse(null);
     }
 }

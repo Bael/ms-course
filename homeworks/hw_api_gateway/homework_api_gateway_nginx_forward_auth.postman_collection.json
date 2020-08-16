@@ -1,0 +1,661 @@
+{
+	"info": {
+		"_postman_id": "31058fd3-1c31-4251-ac2a-0f40b78a0e76",
+		"name": "homework_api_gateway_nginx_forward_auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "регистрация первого пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "657cf5ce-f46a-4ed4-9489-2f5991532627",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"var expect = function  (pm, propertyName, varName) {",
+							"    pm.expect(jsonData).to.have.property(propertyName, pm.collectionVariables.get(varName));",
+							"}",
+							"",
+							"    pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"",
+							"    expect(pm, \"firstName\", \"firstName\");",
+							"    expect(pm, \"lastName\", \"lastName\");",
+							"    expect(pm, \"email\", \"email\");",
+							"    expect(pm, \"phone\", \"phone\");",
+							"});",
+							"// save first id",
+							"pm.collectionVariables.set(\"firstUserId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "befdcd9b-9950-4fd7-9657-c2759ca84ac8",
+						"exec": [
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'))",
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
+							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
+							"pm.collectionVariables.set(\"phone\", pm.variables.replaceIn('{{$randomPhoneNumber}}'))",
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login}}\", \n\t\"password\": \"{{password}}\",\n\t\"email\": \"{{email}}\",\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"phone\": \"{{phone}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "получить данные о пользователе нельзя без логина",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd9594cc-1f34-4c55-a72a-eafea090bcf2",
+						"exec": [
+							"    pm.test(\"Response is 200 \", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    ",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "нельзя изменить профиль пользователя без авторизации",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0714486-7cce-4331-ad23-bc01d092d785",
+						"exec": [
+							"pm.test(\"test error status\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{IDtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"{{$randomFirstName}}\", \n\t\"lastName\": \"{{$randomLastName}}\",\n\t\"phone\": \"{{$randomPhoneNumber}}\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/otusauth/user/{{firstUserId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"otusauth",
+						"user",
+						"{{firstUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логин",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "941e6dbc-da06-4099-bab6-3ce96a6fbfe2",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)",
+							"// pm.collectionVariables.set(\"IDtoken\", responseJSON[\"IDtoken\"])",
+							"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\": \"{{login}}\", \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "проверить данные о пользователе ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e4ec370-4140-4fb7-b9c7-76ecaf607d90",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.lastName).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.firstName).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{IDtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/auth",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "изменить профиль пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93e84d6f-ca27-45f6-bc8f-5d2440064f29",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    var requestJsonData = JSON.parse(pm.request.body.raw);",
+							"    ",
+							"",
+							"    pm.expect(jsonData.phone).to.eql(requestJsonData.phone)",
+							"    pm.expect(jsonData.lastName).to.eql(requestJsonData.lastName)",
+							"    pm.expect(jsonData.firstName).to.eql(requestJsonData.firstName)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{IDtoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"{{$randomFirstName}}\", \n\t\"lastName\": \"{{$randomLastName}}\",\n\t\"phone\": \"{{$randomPhoneNumber}}\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/otusauth/user/{{firstUserId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"otusauth",
+						"user",
+						"{{firstUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "получить данные о пользователе",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/me/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логаут",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/logout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "регистрация второго пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ec90e8a-29dd-4964-835d-d37bb1992249",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"var expect = function  (pm, propertyName, varName) {",
+							"    pm.expect(jsonData).to.have.property(propertyName, pm.collectionVariables.get(varName));",
+							"}",
+							"",
+							"    pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"",
+							"    expect(pm, \"firstName\", \"firstName\");",
+							"    expect(pm, \"lastName\", \"lastName\");",
+							"    expect(pm, \"email\", \"email\");",
+							"    expect(pm, \"phone\", \"phone\");",
+							"});",
+							"// save first id",
+							"pm.collectionVariables.set(\"secondUserId\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42c20ab4-1e07-4f81-964c-d2d87d3d50a3",
+						"exec": [
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'))",
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
+							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
+							"pm.collectionVariables.set(\"phone\", pm.variables.replaceIn('{{$randomPhoneNumber}}'))",
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login}}\", \n\t\"password\": \"{{password}}\",\n\t\"email\": \"{{email}}\",\n\t\"firstName\": \"{{firstName}}\",\n\t\"lastName\": \"{{lastName}}\",\n\t\"phone\": \"{{phone}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логин второго пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24ec5a02-cedb-4743-8d99-4c34481ffd52",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)",
+							"// pm.collectionVariables.set(\"IDtoken\", responseJSON[\"IDtoken\"])",
+							"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\": \"{{login}}\", \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "второй пользователь не может изменить профиль первого пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3efce8e2-2409-4a5e-978f-81947b074a80",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(403);",
+							"    var jsonData = pm.response.json();",
+							"    // var requestJsonData = JSON.parse(pm.request.body.raw);",
+							"    ",
+							"",
+							"    // pm.expect(jsonData.phone).to.eql(requestJsonData.phone)",
+							"    // pm.expect(jsonData.lastName).to.eql(requestJsonData.lastName)",
+							"    // pm.expect(jsonData.firstName).to.eql(requestJsonData.firstName)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{IDtoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"{{$randomFirstName}}\", \n\t\"lastName\": \"{{$randomLastName}}\",\n\t\"phone\": \"{{$randomPhoneNumber}}\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/otusauth/user/{{firstUserId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"otusauth",
+						"user",
+						"{{firstUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "второй пользователь может изменить свой профиль",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "986dc25c-a221-4b1d-9a43-cc509d344dfe",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    var requestJsonData = JSON.parse(pm.request.body.raw);",
+							"    ",
+							"",
+							"    pm.expect(jsonData.phone).to.eql(requestJsonData.phone)",
+							"    pm.expect(jsonData.lastName).to.eql(requestJsonData.lastName)",
+							"    pm.expect(jsonData.firstName).to.eql(requestJsonData.firstName)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{IDtoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"{{$randomFirstName}}\", \n\t\"lastName\": \"{{$randomLastName}}\",\n\t\"phone\": \"{{$randomPhoneNumber}}\"\n}\n"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/otusauth/user/{{secondUserId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"otusauth",
+						"user",
+						"{{secondUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "получить данные второго пользователя",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b748c6f4-824c-4c71-a8e1-596777b01ed7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b1881f1b-20d6-496e-b22c-d12474c41108",
+				"type": "text/javascript",
+				"exec": [
+					"tests[\"[INFO] Request: \" + (('data' in request) ? request['data'] : '') ] = true;",
+					"tests[\"[INFO] Response: \" + responseBody] = true;"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "28e64a41-95de-45d9-9730-d0079ea3b77a",
+			"key": "IDtoken",
+			"value": ""
+		},
+		{
+			"id": "ea397d6d-49c6-48a2-a2ab-6a4162fc96c6",
+			"key": "password",
+			"value": ""
+		},
+		{
+			"id": "5c17949d-c5f6-4f07-bc0e-9772acc3335d",
+			"key": "email",
+			"value": ""
+		},
+		{
+			"id": "775e9ea6-cf48-445a-99e8-dafa337b3bda",
+			"key": "login",
+			"value": ""
+		},
+		{
+			"id": "1a699d9d-8751-4396-a26e-a67a8053aeda",
+			"key": "firstName",
+			"value": ""
+		},
+		{
+			"id": "efa97d98-ba25-462e-ab02-e6668137f276",
+			"key": "lastName",
+			"value": ""
+		},
+		{
+			"id": "41ec2da1-e71e-438e-a52d-f1dafd14a38f",
+			"key": "baseUrl",
+			"value": "http://arch.homework"
+		},
+		{
+			"id": "4a17672b-59b6-4af8-8fd4-9a0553e92328",
+			"key": "phone",
+			"value": ""
+		},
+		{
+			"id": "d9866551-b9ac-494f-a489-f83d1a3ad330",
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"id": "36864863-4326-4a59-ba7e-bb617e4149ce",
+			"key": "firstUserId",
+			"value": ""
+		},
+		{
+			"id": "560347b1-a74d-4684-b97b-42a58f2d6af6",
+			"key": "secondUserId",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
