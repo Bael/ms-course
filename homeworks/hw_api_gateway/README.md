@@ -39,7 +39,9 @@ kubectl apply -f app-ingress.yaml
 ```
 
 ## Проверка через newman
+```
 newman run homework_api_gateway_nginx_forward_auth.postman_collection.json
+```
 
 
 
