@@ -20,21 +20,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/grafana-import.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/dashboard.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/config-map.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/deployment.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/ingress.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/init-db.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/postgres.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/prometheus.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/prometheus.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/service.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/grafana.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/grafana.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/stresstest.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates/stresstest.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prometheus.yml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/db/changelog/v1/add-user-password.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/UserSecurityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/data/UserAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/data/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/ForbiddenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserProfile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserRegistrationInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/security/AuthenticationEvents.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/resources/db/changelog/v1/add-user-password.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/resources/db/changelog/v1/init-user-table.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounting/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/data/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/data/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/domain/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/domain/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/entity/UserAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/rest/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/bael/mscourse/shop/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/db/changelog/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +98,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="708" y="300" width="1205" height="874" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596954973046">
