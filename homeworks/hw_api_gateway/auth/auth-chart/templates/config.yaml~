@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shop-config
+data:
+  POSTGRES_URL: "jdbc:postgresql://{{.Values.postgresql.fullnameOverride}}:5432/{{.Values.postgresql.postgresqlDatabase}}"
+  LOGGING_LEVEL: DEBUG
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shop-secret
+type: Opaque
+data:
+  POSTGRES_USER: {{ .Values.postgresql.postgresqlUsername | b64enc | quote }}
+  POSTGRES_PASSWORD: {{ .Values.postgresql.postgresqlPassword | b64enc | quote }}
+

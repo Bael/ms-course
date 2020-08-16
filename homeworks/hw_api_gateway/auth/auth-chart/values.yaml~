@@ -1,0 +1,25 @@
+replicaCount: 1
+
+fullnameOverride: "auth"
+
+image: "docker.io/bael/ms-course-auth:latest"
+
+service:
+  type: NodePort
+  port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: auth
+  persistence:
+    size: 0.1Gi
+  service:
+    port: "5432"
+
+ingress:
+  enabled: false
+  hosts:
+    - host: arch.homework
+      paths: ["/auth"]
