@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,21 +28,29 @@ public class Product {
     @Column(name = "available_quantity")
     private int availableQuantity;
 
-    @Column
-    private Double rating;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private ProductCategory category;
 
-    @Column(name = "rating_count")
-    private int ratingCount;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    @Column(name = "rating_sum")
-    private long ratingSum;
+//    @Column
+//    private Double rating;
+//
+//    @Column(name = "rating_count")
+//    private int ratingCount;
+//
+//    @Column(name = "rating_sum")
+//    private long ratingSum;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-    public Double calculateRating() {
-        if (ratingCount == 0)
-            return null;
-        return (double) (ratingSum / ratingCount);
-    }
+//    public Double calculateRating() {
+//        if (ratingCount == 0)
+//            return null;
+//        return (double) (ratingSum / ratingCount);
+//    }
 }

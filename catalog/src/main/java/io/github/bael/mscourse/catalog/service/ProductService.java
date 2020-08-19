@@ -8,6 +8,7 @@ import io.github.bael.mscourse.catalog.rest.ProductDTO;
 import io.github.bael.mscourse.catalog.rest.ReviewDTO;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,7 +37,7 @@ public class ProductService {
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
         dto.setStatus(product.getStatus());
-        dto.setRating(product.calculateRating());
+//        dto.setRating(product.calculateRating());
 
         List<ReviewDTO> lastReviews = reviewRepository.findTop10ByProduct_Id(dto.getId())
                 .stream().map(ReviewDTO::of).collect(Collectors.toList());
@@ -46,8 +47,8 @@ public class ProductService {
     public ProductDTO create(ProductDTO createDTO) {
         Product product = new Product();
         fillEntity(product, createDTO);
-        product.setRatingCount(0);
-        product.setRatingSum(0);
+//        product.setRatingCount(0);
+//        product.setRatingSum(0);
         productRepository.save(product);
         createDTO.setId(product.getId());
         return createDTO;
@@ -62,17 +63,17 @@ public class ProductService {
     public ProductDTO addReview(ReviewDTO dto) {
         Product product = productRepository.findByCode(dto.getProductCode())
                 .orElseThrow(() -> new ObjectNotFoundException(dto.getProductCode(), "Review"));
-
-        Review review = new Review();
-        review.setDescription(dto.getDescription());
-        review.setProduct(product);
-        review.setReviewer(dto.getReviewer());
-        review.setRating(dto.getRating());
-        reviewRepository.save(review);
-
-        product.setRatingCount(product.getRatingCount() + 1);
-        product.setRatingSum(product.getRatingSum() + dto.getRating().ordinal());
-        productRepository.save(product);
+//
+//        Review review = new Review();
+////        review.setDescription(dto.getDescription());
+////        review.setProduct(product);
+////        review.setReviewer(dto.getReviewer());
+////        review.setRating(dto.getRating());
+//        reviewRepository.save(review);
+//
+//        product.setRatingCount(product.getRatingCount() + 1);
+//        product.setRatingSum(product.getRatingSum() + dto.getRating().ordinal());
+//        productRepository.save(product);
         return get(product.getId());
     }
 
@@ -89,6 +90,12 @@ public class ProductService {
 
 
     public List<ProductDTO> findAll() {
+        return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
+    }
+
+    @Cacheable(value="products", condition="#useCache")
+    public List<ProductDTO> findProductsByFilter(ProductSearchFilter filter, boolean useCache) {
+
         return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
     }
 

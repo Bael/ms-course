@@ -32,7 +32,7 @@ public class ProductDTO {
                 .description(product.getDescription())
                 .name(product.getName())
                 .price(product.getPrice())
-                .rating(product.getRating())
+//                .rating(product.getRating())
                 .status(product.getStatus()).build();
     }
 }

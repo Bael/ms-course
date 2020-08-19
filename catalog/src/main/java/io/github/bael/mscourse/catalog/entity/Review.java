@@ -5,25 +5,25 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnCloudPlatfo
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Data
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+//    @ManyToOne
+//    @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column
+//    @Column
     private String reviewer;
 
-    @Column
+//    @Column
     private String description;
 
-    @Enumerated
+//    @Enumerated
     private RatingEnum rating;
 
 }

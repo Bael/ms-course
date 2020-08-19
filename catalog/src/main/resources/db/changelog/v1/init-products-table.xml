@@ -1,0 +1,117 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet author="d.kerner" id="2020-08-18-001">
+        <createTable tableName="products">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(300)" />
+            <column name="brand" type="bigint" />
+            <column name="code" type="varchar(300)" />
+            <column name="description" type="text" />
+            <column name="price" type="DECIMAL" />
+            <column name="available_quantity" type="integer" />
+            <column name="status" type="varchar(300)" />
+            <column name="category_id" type="bigint" />
+            <column name="brand_id" type="bigint" />
+        </createTable>
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-18-002">
+        <createTable tableName="brand">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(300)" />
+            <column name="description" type="text" />
+        </createTable>
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-18-003">
+        <createTable tableName="product_category">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(300)" />
+            <column name="description" type="text" />
+        </createTable>
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-18-004">
+        <sql>
+            insert into brand (name, description)
+            values
+            ('Torseo', 'Torseo inc'),
+            ('Yamagaichi', 'Yamagaichi company'),
+            ('KDFC', 'KDFC fitness'),
+            ('XIiaomi', 'XIiaomi'),
+            ('FatPower', 'FatPower')
+            ;
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="d.kerner" id="2020-08-18-005">
+        <sql>
+            insert into product_category (name, description) values
+            ('Эллиптические тренажеры', 'Эллиптические тренажеры'),
+            ('Беговые дорожки', 'Беговые дорожки'),
+            ('Велотренажеры', 'Велотренажеры'),
+            ('Гребные тренажеры', 'Гребные тренажеры'),
+            ('Степперы', 'Степперы')
+
+            ;
+        </sql>
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-18-006">
+        <sql>
+            insert into products
+            (name, code, description, price, available_quantity, status, category_id, brand_id)
+            values
+            ('XIiaomi WalkingDead A1 Pro Black', 'T001', 'С этой дорожкой вы будете идти до самого конца.', 6000, 5, 'ACTIVE',
+            (select id from product_category where name = 'Беговые дорожки') ,
+            (select id from brand where name = 'XIiaomi')),
+
+            ('Yamagaichi Runway-X', 'T002', 'С этой дорожкой вы будете бежать до самого конца.', 8000, 3, 'ACTIVE',
+            (select id from product_category where name = 'Беговые дорожки') ,
+            (select id from brand where name = 'Yamagaichi')),
+
+            ('Yamagaichi Max Pro', 'T003', 'С этой дорожкой вы будете лететь до самого конца.', 16000, 1, 'ACTIVE',
+            (select id from product_category where name = 'Беговые дорожки') ,
+            (select id from brand where name = 'Yamagaichi')),
+
+            ('KDFC BODY LABS Spacetech ', 'T004', 'Почувствуй силу жареных крылышек!', 3000, 0, 'ACTIVE',
+            (select id from product_category where name = 'Беговые дорожки') ,
+            (select id from brand where name = 'KDFC')),
+
+            ('KDFC R403B', 'T005', 'Греби как краб на галерах!', 2000, 15, 'ACTIVE',
+            (select id from product_category where name = 'Гребные тренажеры') ,
+            (select id from brand where name = 'KDFC')),
+
+            ('Fat Sculpture BR-2200H', 'T006', 'Греби, BH-2200H, греби!', 3000, 1, 'ACTIVE',
+            (select id from product_category where name = 'Гребные тренажеры') ,
+            (select id from brand where name = 'FatPower')),
+
+            ('Torseo Octopus V-210', 'T007', 'Греби, BH-2200H, греби!', 3000, 1, 'ACTIVE',
+            (select id from product_category where name = 'Гребные тренажеры') ,
+            (select id from brand where name = 'Torseo')),
+
+            ('Torseo Festa C-320', 'T008', 'Едем как на лыжах.', 3000, 1, 'ACTIVE',
+            (select id from product_category where name = 'Эллиптические тренажеры') ,
+            (select id from brand where name = 'Torseo'))
+            ;
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>
