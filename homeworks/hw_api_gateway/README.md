@@ -34,12 +34,14 @@ helm install app ./app/app-chart/
 Настройка ингресса
 ``` 
 kubectl apply -f auth-ingress.yaml 
-kubectl apply -f auth-ingress-user.yaml.yaml 
+kubectl apply -f auth-ingress-user.yaml
 kubectl apply -f app-ingress.yaml
 ```
 
 ## Проверка через newman
+```
 newman run homework_api_gateway_nginx_forward_auth.postman_collection.json
+```
 
 
 
