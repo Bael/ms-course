@@ -19,15 +19,87 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/homeworks/hw_api_gateway/auth-ingress-user.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/homeworks/hw_api_gateway/img/front-forward.png" afterDir="false" />
+    <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="homework api -gateway">
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/BrandRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/ProductCategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/BrandDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/ProductCategoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/BrandService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/ProductCategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catalog/src/test/java/io/github/bael/mscourse/catalog/rest/CatalogControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/data/OrderShipmentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/OrderShipment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/OrderShipmentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/resources/db/changelog/v1/add-sku-items.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/resources/db/changelog/v1/init-inventory-table.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/resources/db/changelog/v1/init-sequence.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/src/main/java/io/github/bael/mscourse/shopdto/v1/InventoryReserveRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/src/main/java/io/github/bael/mscourse/shopdto/v1/InventoryReserveResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/src/main/java/io/github/bael/mscourse/shopdto/v1/ProductRentRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/OutboxApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/data/OutboxMessageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/entity/OutboxMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/entity/OutboxMessageStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxKafkaSenderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/Outbox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/TransportMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/resources/db/changelog/init-outbox-table.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/outbox/src/test/java/io/github/bael/mscourse/outbox/service/OutboxServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/external/InventoryRestServiceConnector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderLineDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/service/OrderStateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/resources/db/changelog/v1/init-orders-table.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders/src/main/resources/db/changelog/v1/init-outbox-table.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/UserSecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/UserSecurityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/rest/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/security/AuthenticationEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/security/AuthenticationEvents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/io/github/bael/mscourse/auth/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounting/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/config/CachingConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/config/CachingConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/data/ReviewRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/Brand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/ProductCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/entity/ProductCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/ProductSearchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/ProductSearchFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/test/java/io/github/bael/mscourse/catalog/service/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/test/java/io/github/bael/mscourse/catalog/service/ProductServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/api/SKUApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/api/InventoryApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/data/SKURepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/data/SKURepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/SKU.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/SKU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/SchedulePeriod.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/entity/SchedulePeriod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/rest/SKURestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/rest/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/service/SKUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/io/github/bael/mscourse/inventory/service/InventoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/orders/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/OrdersApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/OrdersApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/data/CustomerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/data/OrderLineRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/data/OrderLineRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/entity/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/entity/OrderLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/entity/OrderLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/OrderDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/OrderLineDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/CreateOrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/CreateOrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/outbox/OutboxConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/outbox/data/OutboxEntityRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/outbox/entity/OutboxEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/outbox/entity/OutboxMessageStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

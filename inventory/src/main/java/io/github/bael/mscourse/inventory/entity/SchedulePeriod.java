@@ -3,6 +3,7 @@ package io.github.bael.mscourse.inventory.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,14 +16,18 @@ public class SchedulePeriod {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "SKU_id")
+    @JoinColumn(name = "sku_id")
     private SKU item;
 
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private OrderShipment orderShipment;
+
     @Column(name = "period_start")
-    private LocalDateTime periodStart;
+    private LocalDate periodStart;
 
     @Column(name = "period_finish")
-    private LocalDateTime periodFinish;
+    private LocalDate periodFinish;
 
 
 }

@@ -3,6 +3,7 @@ package io.github.bael.mscourse.catalog.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data

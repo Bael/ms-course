@@ -1,14 +1,12 @@
 package io.github.bael.mscourse.catalog.service;
 
 import io.github.bael.mscourse.catalog.data.ProductRepository;
-import io.github.bael.mscourse.catalog.data.ReviewRepository;
 import io.github.bael.mscourse.catalog.entity.Product;
-import io.github.bael.mscourse.catalog.entity.Review;
 import io.github.bael.mscourse.catalog.rest.ProductDTO;
-import io.github.bael.mscourse.catalog.rest.ReviewDTO;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ReviewRepository reviewRepository;
+//    private final ReviewRepository reviewRepository;
 
     private void fillEntity(Product product, ProductDTO dto) {
         product.setCode(dto.getCode());
@@ -38,10 +36,10 @@ public class ProductService {
         dto.setPrice(product.getPrice());
         dto.setStatus(product.getStatus());
 //        dto.setRating(product.calculateRating());
-
-        List<ReviewDTO> lastReviews = reviewRepository.findTop10ByProduct_Id(dto.getId())
-                .stream().map(ReviewDTO::of).collect(Collectors.toList());
-        dto.setLastReviews(lastReviews);
+//
+//        List<ReviewDTO> lastReviews = reviewRepository.findTop10ByProduct_Id(dto.getId())
+//                .stream().map(ReviewDTO::of).collect(Collectors.toList());
+//        dto.setLastReviews(lastReviews);
     }
 
     public ProductDTO create(ProductDTO createDTO) {
@@ -60,22 +58,22 @@ public class ProductService {
         return dto;
     }
 
-    public ProductDTO addReview(ReviewDTO dto) {
-        Product product = productRepository.findByCode(dto.getProductCode())
-                .orElseThrow(() -> new ObjectNotFoundException(dto.getProductCode(), "Review"));
-//
-//        Review review = new Review();
-////        review.setDescription(dto.getDescription());
-////        review.setProduct(product);
-////        review.setReviewer(dto.getReviewer());
-////        review.setRating(dto.getRating());
-//        reviewRepository.save(review);
-//
-//        product.setRatingCount(product.getRatingCount() + 1);
-//        product.setRatingSum(product.getRatingSum() + dto.getRating().ordinal());
-//        productRepository.save(product);
-        return get(product.getId());
-    }
+//    public ProductDTO addReview(ReviewDTO dto) {
+//        Product product = productRepository.findByCode(dto.getProductCode())
+//                .orElseThrow(() -> new ObjectNotFoundException(dto.getProductCode(), "Review"));
+////
+////        Review review = new Review();
+//////        review.setDescription(dto.getDescription());
+//////        review.setProduct(product);
+//////        review.setReviewer(dto.getReviewer());
+//////        review.setRating(dto.getRating());
+////        reviewRepository.save(review);
+////
+////        product.setRatingCount(product.getRatingCount() + 1);
+////        product.setRatingSum(product.getRatingSum() + dto.getRating().ordinal());
+////        productRepository.save(product);
+//        return get(product.getId());
+//    }
 
     public ProductDTO get(Long id) {
         Product product = getProduct(id);
@@ -93,14 +91,50 @@ public class ProductService {
         return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
     }
 
-    @Cacheable(value="products", condition="#useCache")
+    @Cacheable(value = "products", condition = "#useCache", key = "#filter")
     public List<ProductDTO> findProductsByFilter(ProductSearchFilter filter, boolean useCache) {
 
-        return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("findProductsByFilter is called!");
+        Specification<Product> productSpecification = alwaysTrue();
+        if (filter.getBrandId() != null) {
+            productSpecification = productSpecification.and(findByBrand(filter.getBrandId()));
+        }
+
+        if (filter.getCategoryId() != null) {
+            productSpecification = productSpecification.and(findByCategoryId(filter.getCategoryId()));
+        }
+        if (filter.getName() != null) {
+            productSpecification = productSpecification.and(findByName(filter.getName()));
+        }
+
+        return productRepository.findAll(productSpecification).stream().map(ProductDTO::of).collect(Collectors.toList());
     }
 
+    public Specification<Product> findByBrand(Long brandId) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("brand").get("id"), brandId);
+    }
+
+    public Specification<Product> alwaysTrue() {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.isNotNull(root.get("id"));
+    }
+
+    public Specification<Product> findByCategoryId(Long categoryId) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("id"), categoryId);
+    }
+
+    public Specification<Product> findByName(String name) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), "%" + name + "%");
+    }
+
+
+
     public List<ProductDTO> search(String request) {
-        return productRepository.searchAll("%"+ request + "%").stream()
+        return productRepository.searchAll("%" + request + "%").stream()
                 .map(ProductDTO::of).collect(Collectors.toList());
     }
 }

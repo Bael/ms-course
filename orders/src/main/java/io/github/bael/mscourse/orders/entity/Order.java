@@ -20,39 +20,38 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private UUID uid;
+//    @Column
+//    private UUID uid;
 
     @Column(name = "order_number")
     private String orderNumber;
 
-//    @ManyToOne
-//    @JoinColumn(name = "customer_id")
-//    private Customer customer;
+    @Column(name = "customer_code")
+    private String customerCode;
 
-    @Column(name = "customer_id")
-    private UUID customerId;
+    @Column(name = "customer_name")
+    private String customerName;
 
-//    @Column(name = "customer_name")
-//    private String customerName;
-
-    @Column(name = "total")
+    @Column(name = "total_amount")
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
-    @Column(name = "delivery_address")
+    @Column(name = "order_status_description", length = 500)
+    private String orderStatusDescription;
+
+    @Column(name = "delivery_address", length = 500)
     private String deliveryAddress;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    @Column(name = "plan_delivery_date")
-    private LocalDate planDeliveryDate;
-
-    @Column(name = "fact_delivery_date")
-    private LocalDate factDeliveryDate;
+//    @Column(name = "plan_delivery_date")
+//    private LocalDate planDeliveryDate;
+//
+//    @Column(name = "fact_delivery_date")
+//    private LocalDate factDeliveryDate;
 
 }

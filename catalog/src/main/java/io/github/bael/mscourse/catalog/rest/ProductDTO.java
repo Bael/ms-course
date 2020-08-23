@@ -7,14 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDTO {
+public class ProductDTO implements Serializable {
     private Long id;
     private String name;
     private String code;
@@ -23,12 +23,11 @@ public class ProductDTO {
     private int availableQuantity;
     private Double rating;
     private ProductStatus status;
-    private int ratingCount;
-    private List<ReviewDTO> lastReviews;
 
     public static ProductDTO of(Product product) {
         return builder().availableQuantity(product.getAvailableQuantity())
                 .code(product.getCode())
+                .id(product.getId())
                 .description(product.getDescription())
                 .name(product.getName())
                 .price(product.getPrice())

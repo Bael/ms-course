@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="d.kerner" id="2020-08-18-007">
+        <sql>
+            insert into sku
+            (code, product_code, sku_status)
+            values
+            ('T001-001', 'T001', 'AVAILABLE'),
+            ('T001-002', 'T001', 'AVAILABLE'),
+            ('T001-003', 'T001', 'AVAILABLE'),
+            ('T001-004', 'T001', 'AVAILABLE'),
+            ('T001-005', 'T001', 'AVAILABLE'),
+            ('T001-006', 'T001', 'AVAILABLE'),
+
+            ('T002-006', 'T002', 'AVAILABLE'),
+            ('T002-007', 'T002', 'AVAILABLE'),
+            ('T002-008', 'T002', 'AVAILABLE'),
+
+            ('T003-009', 'T003', 'AVAILABLE'),
+            ('T004-010', 'T004', 'AVAILABLE'),
+            ('T005-011', 'T005', 'AVAILABLE'),
+            ('T006-012', 'T006', 'AVAILABLE'),
+            ('T007-013', 'T007', 'AVAILABLE'),
+            ('T008-014', 'T008', 'AVAILABLE'),
+            ('T009-015', 'T009', 'AVAILABLE'),
+            ('T010-016', 'T010', 'AVAILABLE'),
+            ('T010-017', 'T010', 'AVAILABLE')
+            ;
+        </sql>
+    </changeSet>
+</databaseChangeLog>
