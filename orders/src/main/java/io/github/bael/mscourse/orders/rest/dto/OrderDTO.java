@@ -31,7 +31,7 @@ public class OrderDTO {
         return builder()
                 .customerName(order.getCustomerName())
                 .customerCode(order.getCustomerCode())
-                .orderNumber(order.getOrderNumber())
+                .orderNumber(order.getOrderCode())
                 .id(order.getId())
                 .deliveryAddress(order.getDeliveryAddress())
                 .lines(lines.stream().map(OrderLineDTO::of).collect(Collectors.toList()))

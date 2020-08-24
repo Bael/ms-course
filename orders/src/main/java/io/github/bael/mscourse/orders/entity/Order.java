@@ -24,7 +24,7 @@ public class Order {
 //    private UUID uid;
 
     @Column(name = "order_number")
-    private String orderNumber;
+    private String orderCode;
 
     @Column(name = "customer_code")
     private String customerCode;

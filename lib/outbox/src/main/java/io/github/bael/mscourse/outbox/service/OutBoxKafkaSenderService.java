@@ -1,13 +1,15 @@
 package io.github.bael.mscourse.outbox.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.bael.mscourse.outbox.data.OutboxMessageRepository;
 import io.github.bael.mscourse.outbox.entity.OutboxMessage;
 import io.github.bael.mscourse.outbox.entity.OutboxMessageStatus;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -18,30 +20,33 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class OutBoxKafkaSenderService implements OutBoxSender {
 
-//    @Autowired
-//    public void setKafkaTemplate(KafkaTemplate<String, String> kafkaTemplate) {
-//        this.kafkaTemplate = kafkaTemplate;
-//    }
-
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    private final ObjectMapper mapper;
+    private final ObjectMapper objectMapper;
 
     private final OutboxMessageRepository outboxMessageRepository;
 
-    
-    
+    public OutBoxKafkaSenderService(KafkaTemplate<String, String> kafkaTemplate, OutboxMessageRepository outboxMessageRepository) {
+        this.kafkaTemplate = kafkaTemplate;
+        this.outboxMessageRepository = outboxMessageRepository;
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new Jdk8Module());
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new SimpleModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+
     @SneakyThrows
     @Override
     public void sendMessage(OutboxMessage message) {
         log.debug("Send message called: {}", message);
         TransportMessage transportMessage = TransportMessage.builder().messageId(message.getMessageId())
                 .payload(message.getPayload()).type(message.getMessageType()).build();
-        String body = mapper.writeValueAsString(transportMessage);
+        String body = objectMapper.writeValueAsString(transportMessage);
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getMessageTopic(), body);
 
         future.addCallback(new ListenableFutureCallback<>() {

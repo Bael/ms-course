@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class OrderService {
                 .map(OrderLine::getAmount)
                 .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
         // dummy number series
-        order.setOrderNumber(order.getId().toString());
+        order.setOrderCode(order.getId().toString());
         order.setTotal(orderTotalSum);
         orderRepository.save(order);
         return order;
@@ -67,5 +66,17 @@ public class OrderService {
     private final OrderLineRepository orderLineRepository;
     public List<OrderLine> getLines(Order order) {
         return orderLineRepository.findAllByOrder(order);
+    }
+
+    public void markOrderDelivered(String orderCode, String customerCode, LocalDateTime deliveredOn) {
+        Order order = orderRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
+        if (!customerCode.equals(order.getCustomerCode())) {
+            throw new RuntimeException("Unknown customer!");
+        }
+        order.setOrderStatus(OrderStatus.SHIPPED);
+        order.setOrderStatusDescription("Order delivered at " + deliveredOn.toString());
+        orderRepository.save(order);
+
+
     }
 }

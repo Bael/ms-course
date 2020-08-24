@@ -1,5 +1,6 @@
 package io.github.bael.mscourse.accounting.service;
 
+import io.github.bael.mscourse.accounting.bus.AccountEventBus;
 import io.github.bael.mscourse.accounting.data.EntryRepository;
 import io.github.bael.mscourse.accounting.entity.Entry;
 import io.github.bael.mscourse.accounting.entity.EntryType;
@@ -11,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -48,9 +48,15 @@ public class AccountingAPIService implements AccountingAPI {
         entryRepository.save(entry);
     }
 
+    private final AccountEventBus accountEventBus;
     @Override
-    public void registerPayment(BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode) {
+    public void registerPayment(String paymentId, BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode) {
+        if (entryRepository.findByEntryKey(paymentId).isPresent()) {
+            throw new RuntimeException("Payment already registered!");
+        }
+
         Entry entry = Entry.builder()
+                .entryKey(paymentId)
                 .amount(sum)
                 .entryDate(paymentDate)
                 .entryType(EntryType.PAYMENT)
@@ -59,6 +65,17 @@ public class AccountingAPIService implements AccountingAPI {
                 .customerCode(customerCode)
                 .build();
         entryRepository.save(entry);
+
+        // если заказ оплачен
+        LocalDate today = LocalDate.now(ZoneOffset.UTC);
+        if (balance(customerCode, orderCode, today).compareTo(BigDecimal.ZERO) >=0) {
+            BigDecimal paidSum = entryRepository.findAllByOrderCode(orderCode).stream()
+                    .filter(paymentEntry -> !paymentEntry.getEntryDate().isAfter(today))
+                    .filter(paymentEntry1 -> paymentEntry1.getEntryType().equals(EntryType.PAYMENT))
+                    .map(Entry::getAmount)
+                    .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+            accountEventBus.sendOrderPaidEvent(orderCode, customerCode, paidSum, LocalDateTime.now(ZoneOffset.UTC));
+        }
     }
 
     @Override

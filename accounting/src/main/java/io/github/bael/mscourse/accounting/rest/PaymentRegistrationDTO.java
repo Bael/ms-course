@@ -1,5 +1,6 @@
 package io.github.bael.mscourse.accounting.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

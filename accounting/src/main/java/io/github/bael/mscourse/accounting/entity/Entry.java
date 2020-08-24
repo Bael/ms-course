@@ -23,6 +23,13 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    /**
+     * Уникальный ключ операции
+     */
+    @Column(name = "entry_key")
+    private String entryKey;
+
+
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 

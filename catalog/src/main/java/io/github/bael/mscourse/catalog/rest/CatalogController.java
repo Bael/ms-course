@@ -8,6 +8,7 @@ import io.github.bael.mscourse.catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,11 @@ public class CatalogController {
     @GetMapping("/brand")
     public List<BrandDTO> allBrands() {
         return  brandService.findAll().stream().map(BrandDTO::of).collect(Collectors.toList());
+    }
+
+    @GetMapping("/test")
+    public List<LocalDate> allDates() {
+        return Collections.singletonList(LocalDate.now());
     }
 
     @GetMapping("/category")

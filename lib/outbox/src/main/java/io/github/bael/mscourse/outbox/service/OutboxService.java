@@ -1,6 +1,10 @@
 package io.github.bael.mscourse.outbox.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.bael.mscourse.outbox.data.OutboxMessageRepository;
 import io.github.bael.mscourse.outbox.entity.OutboxMessage;
 import io.github.bael.mscourse.outbox.entity.OutboxMessageStatus;
@@ -17,11 +21,21 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class OutboxService implements Outbox {
 
     private final ObjectMapper objectMapper;
+
+    public OutboxService(OutboxMessageRepository outboxMessageRepository, OutBoxSender outBoxSender) {
+        this.outboxMessageRepository = outboxMessageRepository;
+        this.outBoxSender = outBoxSender;
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new Jdk8Module());
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new SimpleModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
     private final OutboxMessageRepository outboxMessageRepository;
 
     @SneakyThrows
@@ -54,6 +68,9 @@ public class OutboxService implements Outbox {
         if (!messagesToSent.isEmpty()) {
             log.debug("Polling messages. Have messages for processing.");
             messagesToSent.forEach(outBoxSender::sendMessage);
+        } else {
+            log.debug("No messages to send founded!");
+
         }
     }
 }

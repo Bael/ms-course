@@ -14,6 +14,7 @@ public interface InventoryApi {
 //    boolean isAvailable(String SKU, RentPeriod rentPeriod);
 
     InventoryReserveResponse reserveOrder(InventoryReserveRequest request);
+    boolean shipOrder(String orderNumber);
 
 //
 //    void reserve(String SKU, RentPeriod rentPeriod);

@@ -1,5 +1,6 @@
 package io.github.bael.mscourse.orders.config;
 
+import io.github.bael.mscourse.outbox.config.KafkaSettings;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,17 @@ public class KafkaConfig {
 
     @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
+
+    @Value(value = "${kafka.groupId}")
+    private String groupId;
+
+    @Bean
+    public KafkaSettings kafkaSettings() {
+        KafkaSettings settings = new KafkaSettings();
+        settings.setBootstrapAddress(bootstrapAddress);
+        settings.setGroupId(groupId);
+        return settings;
+    }
 //
 //    @Bean
 //    public KafkaAdmin kafkaAdmin() {

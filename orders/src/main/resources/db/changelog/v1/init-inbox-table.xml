@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet author="d.kerner" id="2020-08-24-100">
+        <createTable tableName="inbox_message">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="message_type" type="varchar(500)" />
+            <column name="message_id" type="varchar(300)" />
+            <column name="payload" type="text" />
+            <column name="message_status" type="varchar(300)" />
+            <column name="message_topic" type="varchar(300)" />
+            <column name="created_on" type="timestamp without time zone " />
+            <column name="sent_on" type="timestamp without time zone " />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

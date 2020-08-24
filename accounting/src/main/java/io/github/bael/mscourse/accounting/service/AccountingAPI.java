@@ -2,7 +2,6 @@ package io.github.bael.mscourse.accounting.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 /**
  * Апи для работы со счетом клиента
@@ -30,12 +29,13 @@ public interface AccountingAPI {
 
     /**
      * Регистриуем платеж
-     * @param sum сумма
-     * @param paymentDate дата платежа
      * @param orderId код заказа
      * @param accountId код счета
+     * @param paymentId
+     * @param sum сумма
+     * @param paymentDate дата платежа
      */
-    void registerPayment(BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode);
+    void registerPayment(String paymentId, BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode);
 
     /**
      * Возврат денег клиенту

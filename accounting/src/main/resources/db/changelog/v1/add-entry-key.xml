@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet author="d.kerner" id="2020-08-24-001">
+        <addColumn tableName="account_entry" >
+            <column name="entry_key" type="varchar(500)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-24-002">
+        <createIndex  indexName="idx_entry_key"
+                      tableName="account_entry"
+
+                      unique="true">
+            <column name="entry_key"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

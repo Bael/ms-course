@@ -20,42 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="homework api -gateway">
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/external/OrderEventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/PaymentRegistrationDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/resources/db/changelog/v1/init-account-table.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/resources/db/changelog/v1/init-inbox-table.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounting/src/main/resources/db/changelog/v1/init-outbox-table.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/dto/src/main/java/io/github/bael/mscourse/shopdto/v1/event/OrderCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/data/InboxMessageRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/entity/InboxMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/entity/InboxMessageStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/InboxService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/outbox/src/main/resources/db/changelog/init-inbox-table.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/config/KafkaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/config/OrdersKafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/service/OrderEventBus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/AccountingApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/AccountingApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebAppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/data/EntryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/data/EntryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/entity/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/entity/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/AccountingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/AccountingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/service/AccountingAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/service/AccountingAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/service/AccountingAPIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/service/AccountingAPIService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebAppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebAppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/PaymentRegistrationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/PaymentRegistrationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/WebConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxKafkaSenderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxKafkaSenderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/orders/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/RestTemplateConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderLineDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/rest/dto/OrderLineDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/service/OrderStateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/orders/src/main/java/io/github/bael/mscourse/orders/service/OrderStateService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

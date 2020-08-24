@@ -21,19 +21,15 @@ public class AccountingController {
         return api.balance(customerCode, date);
     }
     
-    @GetMapping("/payment/")
-    public PaymentRegistrationDTO registerPayment(
-
-//            @RequestBody PaymentRegistrationDTO payment
-    ) {
-        PaymentRegistrationDTO dto = new PaymentRegistrationDTO();
-        dto.setCustomerCode("");
-        dto.setOrderCode("");
-        dto.setPaidOn(LocalDate.of(2020, 1, 1));
-        dto.setPaymentId(UUID.randomUUID().toString());
-        dto.setPaidSum(BigDecimal.valueOf(10000));
-        return dto;
-//        return api.balance(customerCode, date);
+    @PostMapping("/payment/")
+    public void registerPayment(@RequestBody PaymentRegistrationDTO payment) {
+        api.registerPayment(payment.getPaymentId(), payment.getPaidSum(), payment.getPaidOn(), payment.getCustomerCode(), payment.getOrderCode());
+//        PaymentRegistrationDTO dto = new PaymentRegistrationDTO();
+//        dto.setCustomerCode("");
+//        dto.setOrderCode("");
+//        dto.setPaidOn(LocalDate.of(2020, 1, 1));
+//        dto.setPaymentId(UUID.randomUUID().toString());
+//        dto.setPaidSum(BigDecimal.valueOf(10000));
     }
 
 

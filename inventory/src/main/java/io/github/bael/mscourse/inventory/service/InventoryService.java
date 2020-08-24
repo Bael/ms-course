@@ -2,6 +2,7 @@ package io.github.bael.mscourse.inventory.service;
 
 import com.google.common.collect.Range;
 import io.github.bael.mscourse.inventory.api.InventoryApi;
+import io.github.bael.mscourse.inventory.bus.InventoryEventBus;
 import io.github.bael.mscourse.inventory.data.OrderShipmentRepository;
 import io.github.bael.mscourse.inventory.data.SKURepository;
 import io.github.bael.mscourse.inventory.data.SchedulePeriodRepository;
@@ -136,6 +137,16 @@ public class InventoryService implements InventoryApi {
         return InventoryReserveResponse.builder().orderReserved(true)
                 .orderCode(request.getOrderCode())
                 .build();
+    }
+
+    private final InventoryEventBus inventoryEventBus;
+    @Override
+    public boolean shipOrder(String orderCode) {
+        OrderShipment shipment = orderShipmentRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
+        shipment.setOrderShipmentStatus(OrderShipmentStatus.DELIVERED);
+        orderShipmentRepository.save(shipment);
+        inventoryEventBus.sendOrderIsDeliveredEvent(orderCode, shipment.getCustomerCode(), LocalDateTime.now(ZoneOffset.UTC));
+        return true;
     }
 
     private List<SchedulePeriod> schedulePeriods(InventoryReserveRequest request, OrderShipment shipment) {

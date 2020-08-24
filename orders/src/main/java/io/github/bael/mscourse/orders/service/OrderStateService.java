@@ -6,7 +6,6 @@ import io.github.bael.mscourse.orders.entity.OrderStatus;
 import io.github.bael.mscourse.orders.external.InventoryRestServiceConnector;
 import io.github.bael.mscourse.orders.rest.dto.OrderDTO;
 import io.github.bael.mscourse.orders.rest.dto.OrderRequest;
-import io.github.bael.mscourse.outbox.service.Outbox;
 import io.github.bael.mscourse.shopdto.v1.InventoryReserveRequest;
 import io.github.bael.mscourse.shopdto.v1.ProductRentRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class OrderStateService {
     
     public OrderDTO createOrder(OrderRequest orderRequest) {
         Order order = orderService.createOrder(orderRequest);
-        if (reserveInventory(orderRequest, order.getOrderNumber())) {
+        if (reserveInventory(orderRequest, order.getOrderCode())) {
             order.setOrderStatus(OrderStatus.CONFIRMED);
             order.setOrderStatusDescription("Order is reserved and waiting payment");
         } else {

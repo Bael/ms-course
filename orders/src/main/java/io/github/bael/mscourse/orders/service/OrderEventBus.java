@@ -20,7 +20,7 @@ public class OrderEventBus {
                 .customerCode(order.getCustomerCode())
                 .customerName(order.getCustomerName())
                 .totalAmount(order.getTotal())
-                .orderCode(order.getOrderNumber())
+                .orderCode(order.getOrderCode())
                 .lines(lines.stream().map(line -> ProductRentRequest.builder()
                         .startOn(line.getPeriodStart())
                         .finishOn(line.getPeriodFinish())
