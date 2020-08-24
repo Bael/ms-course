@@ -21,14 +21,17 @@ import java.util.UUID;
 @RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderController {
-
     private final OrderStateService orderStateService;
 
     @PostMapping("/")
-    public OrderDTO createOrder(@RequestBody OrderRequest request) {
+    public OrderDTO createOrder(@RequestHeader("X-Email") String email,
+                                @RequestHeader("X-First-Name") String firstName,
+                                @RequestHeader("X-Last-Name") String lastName,
+                                @RequestBody OrderRequest request) {
 
-        OrderDTO dto = orderStateService.createOrder(request);
-        return dto;
+        request.setCustomerCode(email);
+        request.setCustomerName(firstName + " " + lastName);
+        return orderStateService.createOrder(request);
     }
 
     @GetMapping("/")

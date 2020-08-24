@@ -41,7 +41,7 @@ public class InboxProcessor {
     public void process(String message) {
         log.info("Поступило сообщение " + message);
         TransportMessage transportMessage = mapper.readValue(message, TransportMessage.class);
-        if (registerInbox(transportMessage.getMessageId())) {
+        if (registerInbox(transportMessage.getMessageId(), transportMessage.getType(), transportMessage.getPayload())) {
             log.info("Сообщение ранее не приходило. Обрабатываем.");
             Optional<OutboxEventListener<?>> listenerOpt = findByType(transportMessage.getType());
             if (listenerOpt.isPresent()) {
@@ -67,10 +67,13 @@ public class InboxProcessor {
     }
 
     private final InboxMessageRepository inboxMessageRepository;
-    public boolean registerInbox(String messageId) {
+    public boolean registerInbox(String messageId, String type, String payload) {
         if (inboxMessageRepository.findByMessageId(messageId).isEmpty()) {
             InboxMessage message = new InboxMessage();
             message.setMessageId(messageId);
+            message.setMessageType(type);
+            message.setPayload(payload);
+
             message.setMessageStatus(InboxMessageStatus.CREATED);
             message.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
             inboxMessageRepository.save(message);

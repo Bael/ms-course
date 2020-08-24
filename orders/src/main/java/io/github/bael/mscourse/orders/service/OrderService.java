@@ -69,14 +69,26 @@ public class OrderService {
     }
 
     public void markOrderDelivered(String orderCode, String customerCode, LocalDateTime deliveredOn) {
-        Order order = orderRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
-        if (!customerCode.equals(order.getCustomerCode())) {
-            throw new RuntimeException("Unknown customer!");
-        }
+        Order order = findOrder(orderCode, customerCode);
         order.setOrderStatus(OrderStatus.SHIPPED);
         order.setOrderStatusDescription("Order delivered at " + deliveredOn.toString());
         orderRepository.save(order);
 
 
+    }
+
+    private Order findOrder(String orderCode, String customerCode) {
+        Order order = orderRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
+        if (!customerCode.equals(order.getCustomerCode())) {
+            throw new RuntimeException("Unknown customer!");
+        }
+        return order;
+    }
+
+    public void markOrderUnpaid(String orderCode, String customerCode, LocalDateTime overdueOn) {
+        Order order = findOrder(orderCode, customerCode);
+        order.setOrderStatus(OrderStatus.CANCELLED);
+        order.setOrderStatusDescription("Order cancelled because unpaid at " + overdueOn.toString());
+        orderRepository.save(order);
     }
 }

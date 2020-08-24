@@ -1,0 +1,23 @@
+replicaCount: 1
+
+# fullnameOverride: "accounting"
+
+image:
+  repository: bael/ms-course-orders
+
+service:
+  type: NodePort
+  port: 9000
+
+
+postgresql:
+  enabled: true
+  fullnameOverride: orders-postgresql 
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: orders
+  persistence:
+    size: 1Gi
+  service:
+    port: "5432"
+

@@ -19,6 +19,13 @@ public class KafkaTopicsListener {
         log.info("Поступило сообщение {} из топика склада. ", message);
         inboxProcessor.process(message);
     }
+
+    @SneakyThrows
+    @KafkaListener(topics = "accounting")
+    public void listenOrders(String message) {
+        log.info("Поступило сообщение {} из топика расчетов. ", message);
+        inboxProcessor.process(message);
+    }
 }
     
 

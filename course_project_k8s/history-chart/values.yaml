@@ -1,0 +1,23 @@
+replicaCount: 1
+
+# fullnameOverride: "accounting"
+
+image:
+  repository: bael/ms-course-history
+
+service:
+  type: NodePort
+  port: 9000
+
+
+postgresql:
+  enabled: true
+  fullnameOverride: history-postgresql 
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: history
+  persistence:
+    size: 1Gi
+  service:
+    port: "5432"
+

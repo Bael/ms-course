@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shop-chart.fullname" . }}
+  labels:
+    {{- include "shop-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "shop-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shop-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB 
+              valueFrom:
+                configMapKeyRef:
+                  name: shop-config
+                  key: LOGGING_LEVEL
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: shop-secret
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: shop-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: shop-config
+                  key: POSTGRES_URL

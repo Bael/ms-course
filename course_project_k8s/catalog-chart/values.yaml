@@ -1,0 +1,23 @@
+replicaCount: 1
+
+# fullnameOverride: "accounting"
+
+image:
+  repository: bael/ms-course-catalog
+
+service:
+  type: NodePort
+  port: 9000
+
+
+postgresql:
+  enabled: true
+  fullnameOverride: catalog-postgresql 
+  postgresqlUsername: postgres
+  postgresqlPassword: password
+  postgresqlDatabase: products
+  persistence:
+    size: 1Gi
+  service:
+    port: "5432"
+

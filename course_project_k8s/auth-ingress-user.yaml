@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: auth-proxy-2
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+      - path: /otusauth($|/)(.*)
+        backend:
+          serviceName: auth
+          servicePort: 9000
+
+
+#    http:
+#      paths:
+#      - path: /login
+#        backend:
+#          serviceName: auth
+#          servicePort: 9000
+#      - path: /auth
+#        backend:
+#          serviceName: auth
+#          servicePort: 9000
+#      - path: /otusauth($|/)(.*)
+#        backend:
+#          serviceName: auth
+#          servicePort: 9000
+
+

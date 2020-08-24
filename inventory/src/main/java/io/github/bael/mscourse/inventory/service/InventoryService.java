@@ -11,6 +11,7 @@ import io.github.bael.mscourse.shopdto.v1.InventoryReserveRequest;
 import io.github.bael.mscourse.shopdto.v1.InventoryReserveResponse;
 import io.github.bael.mscourse.shopdto.v1.ProductRentRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,77 +26,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class InventoryService implements InventoryApi {
 
     private final SchedulePeriodRepository schedulePeriodRepository;
     private final SKURepository skuRepository;
     private final OrderShipmentRepository orderShipmentRepository;
-
-//    @Override
-//    public List<String> getFreeSKU(String productNumber, RentPeriod rentPeriod) {
-//        return skuRepository.getAllSkuListByProductNumber(productNumber)
-//                .stream()
-//                .filter(sku -> SKUStatus.AVAILABLE == sku.getStatus())
-//                .filter(sku -> isFree(sku, rentPeriod))
-//                .map(SKU::getCode)
-//                .collect(Collectors.toList());
-//
-//    }
-
-
-//
-//    @Override
-//    public boolean isAvailable(String sku, RentPeriod rentPeriod) {
-//        return isFree(getItemByCode(sku), rentPeriod);
-//    }
-//
-//    private SKU getItemByCode(String code) {
-//        SKU item = skuRepository.findByCode(code).orElseThrow(() ->
-//                new ObjectNotFoundException("SKU not found:", code));
-//        return item;
-//    }
-
-//
-//    @Override
-//    public void reserve(String skuCode, RentPeriod rentPeriod) {
-//        SKU item = getItemByCode(skuCode);
-//        if (item.getStatus() != SKUStatus.AVAILABLE) {
-//            throw new IllegalStateException("Wrong state of unit!" + item.getStatus());
-//        }
-//
-//        if (!isFree(item, rentPeriod)) {
-//            throw new IllegalStateException("Unit is not free for period! Code:" + item.getCode() + " period: " + rentPeriod.getPeriod());
-//        }
-//        item.setStatus(SKUStatus.RESERVED);
-//        SchedulePeriod period = new SchedulePeriod();
-//        period.setItem(item);
-//        period.setPeriodStart(rentPeriod.getPeriod().lowerEndpoint());
-//        period.setPeriodFinish(rentPeriod.getPeriod().upperEndpoint());
-//
-//        schedulePeriodRepository.save(period);
-//        skuRepository.save(item);
-//
-//    }
-
-//    @Override
-//    public void ship(String skuCode) {
-//        SKU item = getItemByCode(skuCode);
-//        if (item.getStatus() != SKUStatus.RESERVED) {
-//            throw new IllegalStateException("Wrong state of unit!" + item.getStatus());
-//        }
-//        item.setStatus(SKUStatus.OUT);
-//        skuRepository.save(item);
-//    }
-//
-//    @Override
-//    public void accept(String skuCode) {
-//        SKU item = getItemByCode(skuCode);
-//        if (item.getStatus() != SKUStatus.OUT) {
-//            throw new IllegalStateException("Wrong state of unit!" + item.getStatus());
-//        }
-//        item.setStatus(SKUStatus.AVAILABLE);
-//        skuRepository.save(item);
-//    }
 
     /**
      * Не занят ли искомый артикул в указанном периоде?
@@ -140,13 +76,30 @@ public class InventoryService implements InventoryApi {
     }
 
     private final InventoryEventBus inventoryEventBus;
+
     @Override
     public boolean shipOrder(String orderCode) {
+        log.info("Отгружаем заказ (моментально)");
         OrderShipment shipment = orderShipmentRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
         shipment.setOrderShipmentStatus(OrderShipmentStatus.DELIVERED);
         orderShipmentRepository.save(shipment);
         inventoryEventBus.sendOrderIsDeliveredEvent(orderCode, shipment.getCustomerCode(), LocalDateTime.now(ZoneOffset.UTC));
+        log.info("Завершили");
         return true;
+    }
+
+    @Override
+    public void freeOrder(String orderCode) {
+        log.info("Очищаем резервы");
+        OrderShipment shipment = orderShipmentRepository.findByOrderCode(orderCode).orElseThrow(RuntimeException::new);
+        shipment.setOrderShipmentStatus(OrderShipmentStatus.CANCELED);
+        orderShipmentRepository.save(shipment);
+
+        // очищаем
+        List<SchedulePeriod> allByOrderShipment = schedulePeriodRepository.findAllByOrderShipment(shipment);
+        schedulePeriodRepository.deleteAll(allByOrderShipment);
+
+        log.info("Очистка завершена");
     }
 
     private List<SchedulePeriod> schedulePeriods(InventoryReserveRequest request, OrderShipment shipment) {

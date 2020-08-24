@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "accounting-chart.fullname" . }}
+  labels:
+    {{- include "accounting-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "accounting-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "accounting-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          ports:
+            - name: http
+              containerPort: 8003
+              protocol: TCP
+          env:
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB 
+              valueFrom:
+                configMapKeyRef:
+                  name: inventory-config
+                  key: LOGGING_LEVEL
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: inventory-secret
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: inventory-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: inventory-config
+                  key: POSTGRES_URL
+            - name: KAFKA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: inventory-config
+                  key: KAFKA_URL
+      
