@@ -3,6 +3,7 @@ package io.github.bael.mscourse.outbox.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bael.mscourse.outbox.data.OutboxMessageRepository;
 import io.github.bael.mscourse.outbox.entity.OutboxMessage;
+import io.github.bael.mscourse.outbox.entity.OutboxMessageStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,11 @@ public class OutBoxKafkaSenderService implements OutBoxSender {
 //        this.kafkaTemplate = kafkaTemplate;
 //    }
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     private final ObjectMapper mapper;
 
-    private OutboxMessageRepository outboxMessageRepository;
+    private final OutboxMessageRepository outboxMessageRepository;
 
     
     
@@ -47,6 +48,7 @@ public class OutBoxKafkaSenderService implements OutBoxSender {
             @Override
             public void onSuccess(SendResult<String, String> result) {
                 message.setSentOn(LocalDateTime.now(ZoneOffset.UTC));
+                message.setMessageStatus(OutboxMessageStatus.SENT);
                 outboxMessageRepository.save(message);
                 log.info("Sent message=[ {} ] with offset=[ {} ]", message, result.getRecordMetadata().offset());
             }

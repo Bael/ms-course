@@ -21,69 +21,69 @@ public class AccountingAPIService implements AccountingAPI {
     private final EntryRepository entryRepository;
 
     @Override
-    public void chargeOrder(BigDecimal sum, LocalDate orderDate, UUID accountId, UUID orderId) {
+    public void chargeOrder(BigDecimal sum, LocalDate orderDate, String customerCode, String orderCode) {
         Entry entry = Entry.builder()
                 // начисления идут с -, оплата и отмена начислений с +
                 .amount(sum.negate())
                 .entryDate(orderDate)
                 .entryType(EntryType.INVOICE)
                 .createdOn(LocalDateTime.now(ZoneOffset.UTC))
-                .orderId(orderId)
-                .accountId(accountId)
+                .orderCode(orderCode)
+                .customerCode(customerCode)
                 .build();
         entryRepository.save(entry);
     }
 
     @Override
-    public void dischargeOrder(BigDecimal sum, LocalDate reversalDate, UUID accountId, UUID orderId) {
+    public void dischargeOrder(BigDecimal sum, LocalDate reversalDate, String customerCode, String orderCode) {
         Entry entry = Entry.builder()
                 // отмена начислений с +
                 .amount(sum)
                 .entryDate(reversalDate)
                 .entryType(EntryType.INVOICE_REVERSAL)
                 .createdOn(LocalDateTime.now(ZoneOffset.UTC))
-                .orderId(orderId)
-                .accountId(accountId)
+                .orderCode(orderCode)
+                .customerCode(customerCode)
                 .build();
         entryRepository.save(entry);
     }
 
     @Override
-    public void registerPayment(BigDecimal sum, LocalDate paymentDate, UUID accountId, UUID orderId) {
+    public void registerPayment(BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode) {
         Entry entry = Entry.builder()
                 .amount(sum)
                 .entryDate(paymentDate)
                 .entryType(EntryType.PAYMENT)
                 .createdOn(LocalDateTime.now(ZoneOffset.UTC))
-                .orderId(orderId)
-                .accountId(accountId)
+                .orderCode(orderCode)
+                .customerCode(customerCode)
                 .build();
         entryRepository.save(entry);
     }
 
     @Override
-    public void moneyBack(BigDecimal sum, LocalDate operationDate, UUID accountId, UUID orderId) {
+    public void moneyBack(BigDecimal sum, LocalDate operationDate, String customerCode, String orderCode) {
         Entry entry = Entry.builder()
                 .amount(sum.negate())
-                .orderId(orderId)
+                .orderCode(orderCode)
+                .customerCode(customerCode)
                 .entryDate(operationDate)
                 .entryType(EntryType.PAYMENT_RETURN)
                 .createdOn(LocalDateTime.now(ZoneOffset.UTC))
-                .accountId(accountId)
                 .build();
         entryRepository.save(entry);
     }
 
     @Override
-    public BigDecimal balance(UUID accountId, LocalDate queryDate) {
-        return entryRepository.findAllByAccountId(accountId).stream()
+    public BigDecimal balance(String customerCode, LocalDate queryDate) {
+        return entryRepository.findAllByCustomerCode(customerCode).stream()
                 .filter(entry -> !entry.getEntryDate().isAfter(queryDate)).map(Entry::getAmount)
                 .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }
 
     @Override
-    public BigDecimal balance(UUID accountId, UUID orderId, LocalDate queryDate) {
-        return entryRepository.findAllByOrderId(orderId).stream()
+    public BigDecimal balance(String customerCode, String orderCode, LocalDate queryDate) {
+        return entryRepository.findAllByOrderCode(orderCode).stream()
                 .filter(entry -> !entry.getEntryDate().isAfter(queryDate)).map(Entry::getAmount)
                 .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }

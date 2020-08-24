@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface EntryRepository extends CrudRepository<Entry, Long> {
 
-    List<Entry> findAllByOrderId(UUID orderId);
-    List<Entry> findAllByAccountId(UUID accountId);
+    List<Entry> findAllByOrderCode(String orderCode);
+    List<Entry> findAllByCustomerCode(String customerCode);
 
 }

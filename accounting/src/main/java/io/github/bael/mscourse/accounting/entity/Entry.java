@@ -14,12 +14,13 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity
+@Table(name = "account_entry")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Entry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @Column(name = "created_on")
@@ -35,11 +36,14 @@ public class Entry {
     @Enumerated(EnumType.STRING)
     private EntryType entryType;
 
-    @Column
-    private UUID accountId;
+    @Column(name = "customer_code")
+    private String customerCode;
 
-    @Column
-    private UUID orderId;
+    @Column(name = "customer_name")
+    private String customerName;
+
+    @Column(name = "order_code")
+    private String orderCode;
 
 
 }

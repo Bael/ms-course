@@ -14,10 +14,10 @@ public interface AccountingAPI {
      * Для упрощения, считаем что кодом счета является код клиента
      * @param sum - сумма заказа
      * @param orderDate - дата заказа
-     * @param orderId - код заказа
-     * @param accountId - уид счета (считаем что это уид клиента)
+     * @param customerCode - код заказа
+     * @param orderCode - уид счета (считаем что это уид клиента)
      */
-    void chargeOrder(BigDecimal sum, LocalDate orderDate, UUID accountId, UUID orderId);
+    void chargeOrder(BigDecimal sum, LocalDate orderDate, String customerCode, String orderCode);
 
     /**
      * Сторнируем начисления по заказу (полностью или частично)
@@ -26,7 +26,7 @@ public interface AccountingAPI {
      * @param orderId - код заказа
      * @param accountId - код счета
      */
-    void dischargeOrder(BigDecimal sum, LocalDate reversalDate, UUID accountId, UUID orderId);
+    void dischargeOrder(BigDecimal sum, LocalDate reversalDate, String customerCode, String orderCode);
 
     /**
      * Регистриуем платеж
@@ -35,7 +35,7 @@ public interface AccountingAPI {
      * @param orderId код заказа
      * @param accountId код счета
      */
-    void registerPayment(BigDecimal sum, LocalDate paymentDate, UUID accountId, UUID orderId);
+    void registerPayment(BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode);
 
     /**
      * Возврат денег клиенту
@@ -46,7 +46,7 @@ public interface AccountingAPI {
      * @param accountId - счет
      *
      */
-    void moneyBack(BigDecimal sum, LocalDate operationDate, UUID accountId, UUID orderId);
+    void moneyBack(BigDecimal sum, LocalDate operationDate, String customerCode, String orderCode);
 
     /**
      * Баланс счета
@@ -54,7 +54,7 @@ public interface AccountingAPI {
      * @param queryDate - на какую дату смотрим баланс
      * @return сумму (оплат - начислений)
      */
-    BigDecimal balance(UUID accountId, LocalDate queryDate);
+    BigDecimal balance(String customerCode, LocalDate queryDate);
 
     /**
      * Баланс счета по заказу
@@ -63,6 +63,6 @@ public interface AccountingAPI {
      * @param queryDate - на какую дату смотрим баланс
      * @return сумму (оплат - начислений)
      */
-    BigDecimal balance(UUID accountId, UUID orderId, LocalDate queryDate);
+    BigDecimal balance(String customerCode, String orderCode, LocalDate queryDate);
 
 }

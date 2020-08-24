@@ -50,8 +50,10 @@ public class OutboxService implements Outbox {
 
     @Scheduled(fixedDelay = 10000L)
     public void poll() {
-        log.debug("Polling messages");
         List<OutboxMessage> messagesToSent = outboxMessageRepository.findAllByMessageStatusOrderByCreatedOn(OutboxMessageStatus.CREATED);
-        messagesToSent.forEach(outBoxSender::sendMessage);
+        if (!messagesToSent.isEmpty()) {
+            log.debug("Polling messages. Have messages for processing.");
+            messagesToSent.forEach(outBoxSender::sendMessage);
+        }
     }
 }

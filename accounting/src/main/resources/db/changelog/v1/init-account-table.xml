@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="d.kerner" id="2020-08-23-001">
+        <createTable tableName="account_entry">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="order_code" type="varchar(300)" />
+            <column name="customer_code" type="varchar(300)" />
+            <column name="customer_name" type="varchar(300)" />
+            <column name="entry_type" type="varchar(300)" />
+            <column name="amount" type="DECIMAL" />
+            <column name="created_on" type="timestamp without time zone " />
+            <column name="entry_date" type="date" />
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="d.kerner" id="2020-08-23-002">
+        <createSequence sequenceName="hibernate_sequence" />
+    </changeSet>
+
+
+
+
+</databaseChangeLog>

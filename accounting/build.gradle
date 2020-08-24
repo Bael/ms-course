@@ -16,6 +16,15 @@ configurations {
 
 repositories {
 	mavenCentral()
+
+	flatDir {
+		dirs '../lib/dto/build/libs'
+	}
+
+	flatDir {
+		dirs '../lib/outbox/build/libs'
+	}
+
 }
 
 ext {
@@ -23,6 +32,11 @@ ext {
 }
 
 dependencies {
+
+	implementation("io.github.bael.mscourse:ShopDto-1.0.1.RELEASE")
+	implementation("io.github.bael.mscourse:outbox-1.0.1.RELEASE")
+	
+	runtimeOnly 'org.postgresql:postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

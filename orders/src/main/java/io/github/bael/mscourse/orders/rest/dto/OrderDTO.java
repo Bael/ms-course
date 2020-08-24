@@ -3,8 +3,10 @@ package io.github.bael.mscourse.orders.rest.dto;
 import io.github.bael.mscourse.orders.entity.Order;
 import io.github.bael.mscourse.orders.entity.OrderLine;
 import io.github.bael.mscourse.orders.entity.OrderStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDTO {
     private Long id;
     private String customerCode;

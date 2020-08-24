@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
 	implementation("io.github.bael.mscourse:ShopDto-1.0.1.RELEASE")
-	implementation("io.github.bael.mscourse:outbox-1.0.1.RELEASE.jar")
+	implementation("io.github.bael.mscourse:outbox-1.0.1.RELEASE")
 
 	
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'

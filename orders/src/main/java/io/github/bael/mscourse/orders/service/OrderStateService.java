@@ -6,6 +6,7 @@ import io.github.bael.mscourse.orders.entity.OrderStatus;
 import io.github.bael.mscourse.orders.external.InventoryRestServiceConnector;
 import io.github.bael.mscourse.orders.rest.dto.OrderDTO;
 import io.github.bael.mscourse.orders.rest.dto.OrderRequest;
+import io.github.bael.mscourse.outbox.service.Outbox;
 import io.github.bael.mscourse.shopdto.v1.InventoryReserveRequest;
 import io.github.bael.mscourse.shopdto.v1.ProductRentRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class OrderStateService {
 
     private final OrderService orderService;
     private final InventoryRestServiceConnector inventoryConnector;
+    private final OrderEventBus eventBus;
+
     
-
-
     public OrderDTO createOrder(OrderRequest orderRequest) {
         Order order = orderService.createOrder(orderRequest);
         if (reserveInventory(orderRequest, order.getOrderNumber())) {
@@ -34,8 +35,13 @@ public class OrderStateService {
         }
         orderService.save(order);
         List<OrderLine> lines = orderService.getLines(order);
+
+        // оповещаем о создании заказа
+        eventBus.sendOrderCreatedEvent(order, lines);
+
         return OrderDTO.of(order, lines);
     }
+
 
     private boolean reserveInventory(OrderRequest orderRequest, String orderNumber) {
         List<ProductRentRequest> items = orderRequest.getLinesList()
