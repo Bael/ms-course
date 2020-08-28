@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="homework api -gateway">
+      <change afterPath="$PROJECT_DIR$/homeworks/hw_decomposition/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_project_k8s/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_project_k8s/catalog-chart/templates/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/catalog-chart/templates/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_project_k8s/locust/locust.conf" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/locust/locust.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course_project_k8s/locust/stress_catalog.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/locust/stress_catalog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_decomposition/detail-scheme.png" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_decomposition/img/detail-scheme.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeworks/hw_decomposition/detail-scheme_variant_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/homeworks/hw_decomposition/img/detail-scheme_variant_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,16 +47,17 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus" />
-      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/img" />
-      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates" />
-      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/homeworks/hw_api_gateway/img" />
       <recent name="$PROJECT_DIR$/homeworks/hw_api_gateway" />
       <recent name="$PROJECT_DIR$/homeworks/hw_prometheus" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/homeworks/hw_decomposition/img" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/img" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart/templates" />
+      <recent name="$PROJECT_DIR$/homeworks/hw_prometheus/shop-chart" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -86,6 +86,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1003" y="535" width="616" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598617396229">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="1003" y="535" width="616" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.2488.1413/2560.0.1920.1080@72.27.2488.1413" timestamp="1598617396229" />
     <state x="708" y="300" width="1205" height="874" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596954973046">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
