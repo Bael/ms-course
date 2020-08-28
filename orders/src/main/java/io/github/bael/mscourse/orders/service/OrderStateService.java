@@ -9,6 +9,7 @@ import io.github.bael.mscourse.orders.rest.dto.OrderRequest;
 import io.github.bael.mscourse.shopdto.v1.InventoryReserveRequest;
 import io.github.bael.mscourse.shopdto.v1.ProductRentRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderStateService {
 
     private final OrderService orderService;
@@ -24,6 +26,7 @@ public class OrderStateService {
 
     
     public OrderDTO createOrder(OrderRequest orderRequest) {
+
         Order order = orderService.createOrder(orderRequest);
         if (reserveInventory(orderRequest, order.getOrderCode())) {
             order.setOrderStatus(OrderStatus.CONFIRMED);
@@ -43,6 +46,7 @@ public class OrderStateService {
 
 
     private boolean reserveInventory(OrderRequest orderRequest, String orderNumber) {
+        log.info("запрос возможности резервирования: {}", orderNumber);
         List<ProductRentRequest> items = orderRequest.getLinesList()
                 .stream().map(line -> ProductRentRequest.builder()
                         .productCode(line.getProductCode())
@@ -55,7 +59,9 @@ public class OrderStateService {
                 .orderCode(orderNumber)
                 .requestDTOList(items)
                 .build();
-        return inventoryConnector.reserveProducts(request).isOrderReserved();
+        boolean orderReserved = inventoryConnector.reserveProducts(request).isOrderReserved();
+        log.info("Результат запроса возможности резервирования:{}", orderNumber);
+        return orderReserved;
     }
 
 }

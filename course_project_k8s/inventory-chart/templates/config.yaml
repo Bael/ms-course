@@ -6,6 +6,8 @@ data:
   POSTGRES_URL: "jdbc:postgresql://{{.Values.postgresql.fullnameOverride}}:5432/{{.Values.postgresql.postgresqlDatabase}}"
   LOGGING_LEVEL: DEBUG
   KAFKA_URL: "bootstrap.kafka.svc.cluster.local:9092"
+  ENABLE_HAZELCAST_KUBERNETES: "true"
+  
 
 ---
 apiVersion: v1

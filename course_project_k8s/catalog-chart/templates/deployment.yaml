@@ -47,4 +47,8 @@ spec:
                 configMapKeyRef:
                   name: catalog-config
                   key: KAFKA_URL
-        
+            - name: CATALOG_APP_USE_CACHE
+              valueFrom:
+                configMapKeyRef:
+                  name: catalog-config
+                  key: CATALOG_APP_USE_CACHE                        

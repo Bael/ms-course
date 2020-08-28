@@ -4,6 +4,7 @@ import io.github.bael.mscourse.catalog.data.ProductRepository;
 import io.github.bael.mscourse.catalog.entity.Product;
 import io.github.bael.mscourse.catalog.rest.ProductDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -91,15 +93,9 @@ public class ProductService {
         return productRepository.findAll().stream().map(ProductDTO::of).collect(Collectors.toList());
     }
 
-    @Cacheable(value = "products", condition = "#useCache", key = "#filter")
+    @Cacheable(value = "products", condition = "#useCache", key = "#filter.hashCode()")
     public List<ProductDTO> findProductsByFilter(ProductSearchFilter filter, boolean useCache) {
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("findProductsByFilter is called!");
+        log.info("Search product by filter! {}", filter);
         Specification<Product> productSpecification = alwaysTrue();
         if (filter.getBrandId() != null) {
             productSpecification = productSpecification.and(findByBrand(filter.getBrandId()));

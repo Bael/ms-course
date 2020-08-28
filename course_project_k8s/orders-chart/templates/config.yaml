@@ -6,7 +6,7 @@ data:
   POSTGRES_URL: "jdbc:postgresql://{{.Values.postgresql.fullnameOverride}}:5432/{{.Values.postgresql.postgresqlDatabase}}"
   LOGGING_LEVEL: DEBUG
   KAFKA_URL: "bootstrap.kafka.svc.cluster.local:9092"
-  INVENTORY_SERVICE_URL: "http://inventory-inventory-chart.course.svc.cluster.local:9000"
+  INVENTORY_SERVICE_URL: "http://inventory-inventory-chart.monitoring.svc.cluster.local:9000"
   
 
 ---

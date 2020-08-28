@@ -20,11 +20,6 @@ import java.util.Map;
 public class KafkaConsumerConfig {
 
     private final KafkaSettings kafkaSettings;
-//    @Value(value = "${kafka.groupId}")
-//    private String groupId;
-//
-//    @Value(value = "${kafka.bootstrapAddress}")
-//    private String bootstrapAddress;
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {

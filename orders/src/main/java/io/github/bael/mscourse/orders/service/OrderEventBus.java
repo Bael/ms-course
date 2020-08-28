@@ -21,6 +21,7 @@ public class OrderEventBus {
                 .customerName(order.getCustomerName())
                 .totalAmount(order.getTotal())
                 .orderCode(order.getOrderCode())
+                .orderDate(order.getCreatedOn().toLocalDate())
                 .lines(lines.stream().map(line -> ProductRentRequest.builder()
                         .startOn(line.getPeriodStart())
                         .finishOn(line.getPeriodFinish())

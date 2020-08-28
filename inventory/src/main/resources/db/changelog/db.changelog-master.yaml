@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/v1/init-inbox-table.xml
   - include:
       file: db/changelog/v1/init-outbox-table.xml
+  - include:
+      file: db/changelog/v1/add-indexes.xml

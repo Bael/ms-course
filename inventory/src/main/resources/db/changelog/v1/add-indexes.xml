@@ -1,0 +1,72 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="d.kerner" id="2020-08-26-001">
+        <createIndex tableName="order_shipment" indexName="order_code_idx">
+            <column name="order_code"/>
+        </createIndex>
+
+        <createIndex tableName="schedule_period" indexName="sku_id_idx">
+            <column name="sku_id"/>
+        </createIndex>
+
+        <createIndex tableName="schedule_period" indexName="shipment_id_idx">
+            <column name="shipment_id"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-26-002">
+        <createIndex tableName="outbox_message" indexName="message_status_idx">
+            <column name="message_status"/>
+        </createIndex>
+
+        <createIndex tableName="outbox_message" indexName="created_on_idx">
+            <column name="created_on"/>
+        </createIndex>
+
+        <createIndex tableName="outbox_message" indexName="message_id_idx">
+            <column name="message_id"/>
+        </createIndex>
+
+        <createIndex tableName="inbox_message" indexName="inbox_message_id_idx">
+            <column name="message_id"/>
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="d.kerner" id="2020-08-26-003">
+        <createIndex tableName="sku" indexName="sku_product_code_idx">
+            <column name="product_code"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet author="d.kerner" id="2020-08-26-004">
+        <sql>
+            insert into sku
+            (code, product_code, sku_status)
+            values
+            ('T001-006', 'T001', 'AVAILABLE'),
+            ('T001-007', 'T001', 'AVAILABLE'),
+            ('T001-008', 'T001', 'AVAILABLE'),
+            ('T001-009', 'T001', 'AVAILABLE'),
+            ('T001-010', 'T001', 'AVAILABLE'),
+            ('T001-011', 'T001', 'AVAILABLE'),
+            ('T001-012', 'T001', 'AVAILABLE'),
+            ('T001-013', 'T001', 'AVAILABLE'),
+            ('T001-014', 'T001', 'AVAILABLE'),
+            ('T001-015', 'T001', 'AVAILABLE'),
+            ('T010-016', 'T001', 'AVAILABLE'),
+            ('T010-017', 'T001', 'AVAILABLE')
+            ;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

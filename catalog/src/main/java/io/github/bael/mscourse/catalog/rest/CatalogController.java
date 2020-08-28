@@ -6,6 +6,7 @@ import io.github.bael.mscourse.catalog.service.ProductCategoryService;
 import io.github.bael.mscourse.catalog.service.ProductSearchFilter;
 import io.github.bael.mscourse.catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/catalog")
 @RequiredArgsConstructor
+@Slf4j
 public class CatalogController {
 
     private final ProductService productService;
@@ -30,10 +32,11 @@ public class CatalogController {
     @PostMapping("/search")
     public List<ProductDTO> search(@RequestBody ProductSearchFilter searchFilter) {
         String catalog_app_use_cache = System.getenv("CATALOG_APP_USE_CACHE");
-        boolean useCache = true;
-        if (catalog_app_use_cache != null) {
-            useCache = Boolean.getBoolean(catalog_app_use_cache);
-        }
+
+        boolean useCache = Boolean.parseBoolean(catalog_app_use_cache);
+
+        log.info("Use cache is  {}", useCache);
+
         return productService.findProductsByFilter(searchFilter, useCache);
     }
 

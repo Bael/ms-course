@@ -12,15 +12,14 @@ import io.github.bael.mscourse.shopdto.v1.InventoryReserveResponse;
 import io.github.bael.mscourse.shopdto.v1.ProductRentRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,9 +48,52 @@ public class InventoryService implements InventoryApi {
                 .noneMatch(period -> range.isConnected(Range.closed(period.getPeriodStart(), period.getPeriodFinish())));
     }
 
-    @Override
-    public synchronized InventoryReserveResponse reserveOrder(InventoryReserveRequest request) {
+    private final JdbcTemplate jdbcTemplate;
 
+//    @Override
+    public InventoryReserveResponse reserveOrderExp(InventoryReserveRequest request) {
+
+        log.info("Reserve order requested!");
+
+        Map<String, Long> allIds = new HashMap<>();
+        for (ProductRentRequest rentRequest : request.getRequestDTOList()) {
+            String query = "select top sku.id from sku sku left outer join schedule_period p on sku.id = p.sku_id where "
+                    + "sku.product_code = ? and (p is null or (? <= period_start or ? >= period_finish )); ";
+            List<Long> ids = jdbcTemplate.query(query, new Object[]{rentRequest.getProductCode(), rentRequest.getFinishOn(), rentRequest.getStartOn()}, (rs, rowNum) -> rs.getLong("id"));
+            // мест нет
+            if (ids.isEmpty()) {
+                return InventoryReserveResponse.builder().orderReserved(false)
+                        .orderCode(request.getOrderCode())
+                        .build();
+            }
+            allIds.put(rentRequest.getProductCode(), ids.get(0));
+        }
+
+        OrderShipment shipment = new OrderShipment();
+        shipment.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
+        shipment.setCustomerCode(request.getCustomerCode());
+        shipment.setOrderCode(request.getOrderCode());
+        shipment.setOrderShipmentStatus(OrderShipmentStatus.RESERVED);
+        orderShipmentRepository.save(shipment);
+
+
+        List<SchedulePeriod> schedulePeriods = schedulePeriods(request, shipment);
+        schedulePeriodRepository.saveAll(schedulePeriods);
+        for (ProductRentRequest rentRequest : request.getRequestDTOList()) {
+            String query = "insert into schedule_period (sku_id, period_start, period_finish) values (?, ? , ?) ";
+            Long id = allIds.get(rentRequest.getProductCode());
+            jdbcTemplate.update(query, id, rentRequest.getStartOn(), rentRequest.getFinishOn());
+        }
+
+        log.info("Order reserved!");
+        return InventoryReserveResponse.builder().orderReserved(true)
+                .orderCode(request.getOrderCode())
+                .build();
+    }
+
+    @Override
+    public InventoryReserveResponse reserveOrder(InventoryReserveRequest request) {
+        log.info("Reserve order requested!");
         // есть свободное место?
         if (!checkAvailabilityRequest(request)) {
             return InventoryReserveResponse.builder().orderReserved(false)
@@ -62,7 +104,6 @@ public class InventoryService implements InventoryApi {
         OrderShipment shipment = new OrderShipment();
         shipment.setCreatedOn(LocalDateTime.now(ZoneOffset.UTC));
         shipment.setCustomerCode(request.getCustomerCode());
-//        shipment.setCustomerName(request.getCustomerCode());
         shipment.setOrderCode(request.getOrderCode());
         shipment.setOrderShipmentStatus(OrderShipmentStatus.RESERVED);
         orderShipmentRepository.save(shipment);
@@ -70,6 +111,7 @@ public class InventoryService implements InventoryApi {
         List<SchedulePeriod> schedulePeriods = schedulePeriods(request, shipment);
         schedulePeriodRepository.saveAll(schedulePeriods);
 
+        log.info("Order reserved!");
         return InventoryReserveResponse.builder().orderReserved(true)
                 .orderCode(request.getOrderCode())
                 .build();
@@ -128,8 +170,11 @@ public class InventoryService implements InventoryApi {
     }
 
     private boolean checkAvailabilityRequest(InventoryReserveRequest request) {
-        return request.getRequestDTOList().stream()
+        log.info("checkAvailabilityRequest started!");
+        boolean b = request.getRequestDTOList().stream()
                 .allMatch(req -> findFreeOnPeriod(req.getProductCode(), req.getStartOn(), req.getFinishOn()).isPresent());
+        log.info("checkAvailabilityRequest finished!");
+        return b;
     }
 
 

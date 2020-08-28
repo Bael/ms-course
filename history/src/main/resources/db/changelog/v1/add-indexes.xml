@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+	   http://www.liquibase.org/xml/ns/dbchangelog
+	   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="d.kerner" id="2020-08-26-002">
+        <createIndex tableName="outbox_message" indexName="outbox_message_status_idx">
+            <column name="message_status"/>
+        </createIndex>
+
+        <createIndex tableName="outbox_message" indexName="outbox_created_on_idx">
+            <column name="created_on"/>
+        </createIndex>
+
+        <createIndex tableName="outbox_message" indexName="outbox_message_id_idx">
+            <column name="message_id"/>
+        </createIndex>
+
+        <createIndex tableName="inbox_message" indexName="inbox_message_id_idx">
+            <column name="message_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

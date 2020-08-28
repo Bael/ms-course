@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
@@ -26,11 +25,11 @@ import java.util.function.Consumer;
 @Slf4j
 public class AccountingAPIService implements AccountingAPI {
 
-    @Value("${deadline.interval}")
-    private int minutesInterval;
-
     private final EntryRepository entryRepository;
     private final InvoiceRepository invoiceRepository;
+    private final AccountEventBus accountEventBus;
+    @Value("${deadline.interval}")
+    private int minutesInterval;
 
     @Override
     public void chargeOrder(BigDecimal sum, LocalDate orderDate, String customerCode, String orderCode) {
@@ -90,7 +89,6 @@ public class AccountingAPIService implements AccountingAPI {
         entryRepository.save(entry);
     }
 
-    private final AccountEventBus accountEventBus;
     @Override
     public void registerPayment(String paymentId, BigDecimal sum, LocalDate paymentDate, String customerCode, String orderCode) {
         log.info("регистрация платежа");

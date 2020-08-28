@@ -21,7 +21,9 @@ import java.util.List;
 
 @Configuration
 //@EnableWebMvc
-public class WebAppConfig implements WebMvcConfigurer {
+public class WebAppConfig
+//        implements WebMvcConfigurer
+{
 
 
 //    @Override
