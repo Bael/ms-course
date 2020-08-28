@@ -1,36 +1,29 @@
-## Домашнее задание по API Gateway:
-### Задача
-Инструментировать сервис метриками и алертами.
-Инструментировать сервис из прошлого занятия метриками в формате Prometheus.
-Сделать дашборд в Графане, в котором были бы метрики с разбивкой по API методам:
-Настроить алертинг в графане на Error Rate и Latency.
-Инструментировать базу данных с помощью экспортера для prometheus для этой БД.
-Добавить в общий дашборд графики с метриками работы БД.
-Используя существующие системные метрики из кубернетеса, добавить на дашборд графики с метриками:
-1. Потребление подами приложения памяти
-2. Потребление подами приложения CPU
-
-## Схема работы 
-Применен подход forward auth на основе ngnix ingress  
-![RPS](img/front-forward.png)
-
-
+# Курсовая работа
 ## Инструкция по установке:
 Запустить миникуб
 Убедиться что аддон с ингресом установлен
-В директории с чартами (hw_api_gateway) выполнить команды:
+В директории с чартами course_project_k8s выполнить команды:
 Подготовка:
 ```
-kubectl create namespace auth
-kubectl config set-context --current --namespace=auth
+kubectl create namespace monitoring
+kubectl config set-context --current --namespace=monitoring
 ```
 
-Запуск сервиса аутентификации и основного приложения:
+Установка kafka 
 ```
-helm install auth ./auth/auth-chart/
-helm install app ./app/app-chart/
+kubectl create namespace kafka && \
+kubectl apply -k github.com/Yolean/kubernetes-kafka/variants/dev-small/?ref=v6.0.3
 ```
 
+Запуск сервисов:
+```
+helm install accounting accounting-chart && \
+helm install catalog catalog-chart  && \
+helm install history history-chart  && \
+helm install orders orders-chart && \
+helm install inventory inventory-chart  && \
+helm install auth auth-chart 
+```
 Настройка ингресса
 ``` 
 kubectl apply -f auth-ingress.yaml 
@@ -38,10 +31,6 @@ kubectl apply -f auth-ingress-user.yaml
 kubectl apply -f app-ingress.yaml
 ```
 
-## Проверка через newman
-```
-newman run homework_api_gateway_nginx_forward_auth.postman_collection.json
-```
 
 
 
