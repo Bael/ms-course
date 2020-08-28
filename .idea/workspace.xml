@@ -21,12 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6ff1b862-8daa-40e4-9396-3b7b43002d5c" name="Default Changelist" comment="homework api -gateway">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebAppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/config/WebAppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/PaymentRegistrationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounting/src/main/java/io/github/bael/mscourse/accounting/rest/PaymentRegistrationDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/src/main/java/io/github/bael/mscourse/catalog/rest/CatalogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxKafkaSenderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutBoxKafkaSenderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib/outbox/src/main/java/io/github/bael/mscourse/outbox/service/OutboxService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_project_k8s/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_project_k8s/catalog-chart/templates/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/catalog-chart/templates/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_project_k8s/locust/locust.conf" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/locust/locust.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_project_k8s/locust/stress_catalog.py" beforeDir="false" afterPath="$PROJECT_DIR$/course_project_k8s/locust/stress_catalog.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +45,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/homeworks/hw_api_gateway/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">

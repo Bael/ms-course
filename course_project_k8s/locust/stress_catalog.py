@@ -3,20 +3,11 @@ import os
 import faker
 
 fake = faker.Faker()
-# import faker
-# from requests_toolbelt.utils import dump
 
 from locust import HttpUser, task, between
 
 class QuickstartUser(HttpUser):
     wait_time = between(1, 2)
-
-#    @task(3)
-#    def history(self):
-#      for counter in range(100):
-#        self.client.get("/history/all")
-#        self.client.get("/history/?CUSTOMER=Tristian.Leannon@hotmail.com") 
-#        time.sleep(1)
 
  
     @task(3)
@@ -26,9 +17,6 @@ class QuickstartUser(HttpUser):
       for category_id in range(5):
         for brand_id in range(5):
           self.client.post("/catalog/search/", json={ "brandId" : f"{brand_id}", "categoryId": f"{category_id}", "name" : "a" })
-            # self.client.post("/catalog/search/", json={ "brandId" : f"{brand_id}", "categoryId": f"{category_id}", "name" : fake.word() })
-            # time.sleep(1)
-          
 
 
     def on_start(self):
